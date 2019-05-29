@@ -1,0 +1,23 @@
+@import "fonts.scss";
+
+/**** FONT ****/
+$Circular   : "Circular Std", serif;
+$Georgia    : "Georgia", serif;
+
+
+/**** COLORS ***/
+$black         : #222222;
+$white         : #ffffff;
+$grey          : #9B9B9B;
+$blue          : #183E80;
+$blueBold      : #0D2A66;
+$blueRadiant1  : #2F607E;
+$blueRadiant2  : #001447;
+$orange        : #D63400;
+
+
+/**** RESPONSIVE ****/
+$mini-mobile: "screen and (max-width: 520px)";
+$mobile: "screen and (max-width: 768px)";
+$tablet: "screen and (max-width: 1024px)";
+$desktop: "(min-width: 1024px)";
