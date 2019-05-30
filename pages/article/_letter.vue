@@ -1,6 +1,7 @@
 <template>
   <div v-if="!article.vote_count">
     <section class="news">
+      <div class="like"></div>
       <div class="news__container">
         <h1>{{ article.title }}</h1>
         <h2>{{ article.publishedAt }} - {{ article.source.name }}</h2>
@@ -74,6 +75,13 @@
       }
     },
 
+    mounted: function (){
+      var like = document.querySelector('.like');
+      like.onclick = function(){
+        like.classList.toggle("liked");
+      }
+    },
+
     async asyncData({params}) {
       let response = await axios.get('http://127.0.0.1:8000/api/letter/' + params.letter)
       return {
@@ -91,6 +99,38 @@
   @import "@/assets/scss/style.scss";
 
   .news {
+    position: relative;
+
+    & .like{
+      cursor: pointer;
+      display: block;
+      width: 50px;
+      height: 50px;
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translate(20px, -50%);
+      background: url(../../assets/img/like.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+
+      &.liked{
+      background: url(../../assets/img/likeOk.svg);
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+      }
+
+
+      @media #{$mobile} {
+        top: inherit;
+        left: inherit;
+        bottom: 0;
+        right: 0;
+        transform: translate(-50px, -50px);
+      }
+    }
 
     &__container {
       max-width: 900px;
@@ -255,6 +295,10 @@
             @include transform(matrix(1, 0, 0, 1, 0, 0));
           }
         }
+      }
+
+      @media screen and(max-width: 1070px){
+        max-width: 590px;
       }
 
     }

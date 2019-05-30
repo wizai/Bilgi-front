@@ -1,13 +1,14 @@
 <template>
   <div>
     <form action="" @submit.prevent="registerUser">
-      <label for="">Name</label>
-      <input type="text" placeholder="Name" autofocus required v-model="userForm.name">
-      <label for="">Email</label>
-      <input type="email" placeholder="email" autofocus required v-model="userForm.email">
-      <label for="">password</label>
-      <input type="password" placeholder="password" required v-model="userForm.password">
-      <button type="submit">Login</button>
+      <div class="formContent">
+        <h2>Hello <span>Buddy</span>,</h2>
+        <p>Enter your informations below</p>
+        <input type="text" placeholder="Name" autofocus required v-model="userForm.name">
+        <input type="email" placeholder="Email adress" autofocus required v-model="userForm.email">
+        <input type="password" placeholder="Password" required v-model="userForm.password">
+        <button type="submit"></button>
+      </div>
     </form>
   </div>
 </template>
@@ -41,6 +42,96 @@
   }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+  @import "@/assets/scss/style.scss";
+
+  form{
+    width: 500px;
+    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+    padding: 50px 0;
+
+    & *{
+      box-sizing: border-box;
+    }
+
+    & .formContent{
+      width: 300px;
+      margin: 0 auto;
+
+      & h2{
+        font-family: $Circular;
+        color: $black;
+        font-weight: normal;
+        margin-bottom: 10px;
+        font-size: 40px;
+
+        & span{
+          font-weight: bold;
+        }
+      }
+
+      & p{
+        font-family: $Circular;
+        color: $black;
+        font-weight: normal;
+        margin-bottom: 30px;
+        font-size: 16px;
+      }
+
+      & input[type="text"],
+      & input[type="email"],
+      & input[type="password"]{
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        border-bottom: solid 2px #BEB9C5;
+        display: block;
+        width: 100%;
+        height: 47px;
+        font-family: $Circular;
+        color: #BEB9C5;
+        font-size: 18px;
+        padding: 0 5px;
+        outline: none;
+        margin-bottom: 10px;
+
+        &::placeholder{
+          font-family: $Circular;
+          color: #BEB9C5;
+          font-size: 18px;
+        }
+      }
+
+      & button{
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        margin: 50px 0 0 auto;
+        display: block;
+        width: 60px;
+        height: 60px;
+        background: $blue url(../assets/img/right-arrowW.svg);
+        background-repeat: no-repeat;
+        background-size: 30px;
+        background-position: center center;
+        border-radius: 18px;
+        cursor: pointer;
+      }
+
+      @media #{$mobile} {
+        width: calc( 100% - 40px);
+      }
+    }
+
+    @media #{$mobile} {
+      width: calc( 100% - 40px);
+    }
+  }
 
 </style>
