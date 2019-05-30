@@ -10,6 +10,7 @@
       <a href="" @click.prevent="logout">Sign Out</a>
     </header>
     <div>
+      <slider></slider>
       <div class="center">
         <div class="centerBis">
           <p v-if="loggedIn">
@@ -26,12 +27,18 @@
 
 <script>
 
+import slider from "~/components/slider/slider.vue";
+
   export default {
     methods: {
       logout() {
         this.$auth.logout();
       }
-    }
+    },
+
+    components: {
+      slider
+    },
   }
 
 </script>
