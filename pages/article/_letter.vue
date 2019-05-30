@@ -95,7 +95,7 @@
     &__container {
       max-width: 900px;
       margin: 0 auto 100px;
-      padding: 15px;
+      padding: 100px 15px 15px 15px;
       @media #{$mobile} {
         margin: 0 auto 60px;
       }

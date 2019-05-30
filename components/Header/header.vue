@@ -5,7 +5,7 @@
     <header>
 
       <div class="header__container" v-bind:class="{ 'color-nav': $route.path == '/' }">
-        <div class="navMobileContainer">
+        <div class="navMobileContainer" >
           <div class="menuBurger">
             <div class="bar1"></div>
             <div class="bar2"></div>
@@ -79,6 +79,17 @@
             }
           }
         }
+
+        & .navMobileContainer{
+
+          & .menuBurger{
+            & .bar1,
+            & .bar2,
+            & .bar3{
+              background-color: $white;
+            }
+          }
+        }
       }
 
       & .navMobileContainer{
@@ -94,7 +105,7 @@
           & .bar3{
             width: 35px;
             height: 5px;
-            background-color: $white;
+            background-color: #000;
             margin: 6px 0;
             border-radius: 5px;
             transition: .4s ease;
