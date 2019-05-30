@@ -347,6 +347,10 @@
         font-size: 80px;
         color: #fff;
         font-weight: bold;
+
+        @media #{$mobile} {
+          font-size: 40px;
+        }
       }
     }
 
@@ -409,6 +413,11 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    @media #{$mobile} {
+      width: 300px;
+      height: 300px;
+    }
   }
 
   .redBlock {
@@ -421,6 +430,11 @@
     left: 50%;
     transform: translate(-50%, -50%);
     transition: .2s;
+
+    @media #{$mobile} {
+      width: 120px;
+      height: 120px;
+    }
   }
 
   .redBlock.mystyle {
