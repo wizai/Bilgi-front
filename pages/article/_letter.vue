@@ -42,12 +42,12 @@
               <p>{{ article.release_date}}</p>
             </div>
             <div class="movie__description--info">
-              <span>Réaliser par</span>
+              <span>Genre</span>
               <p v-for="genre in article.genres" :key="genre.id">{{ genre.name }}</p>
             </div>
             <div class="movie__description--info">
-              <span>Durée</span>
-              <p>{{ article.runtime }}</p>
+              <span>Note </span>
+              <p>{{ article.popularity }}</p>
             </div>
           </div>
           <div class="right">
@@ -55,26 +55,6 @@
             <p class="movie__description--part1--synopsis">{{ article.overview }}</p>
           </div>
         </div>
-        <!--<div class="movie__description&#45;&#45;part2">
-          <div class="movie__description&#45;&#45;info">
-            <div class="left">
-              <span>Réaliser par</span>
-            </div>
-            <div class="right">
-              <p>{{ article.director.givenName }} {{ article.director.familyName }}</p>
-            </div>
-          </div>
-          <div class="movie__description&#45;&#45;info">
-            <div class="left">
-              <span>Acteurs</span>
-            </div>
-            <div class="right">
-              <div v-for="actor in article.actor" :key="actor._id">
-                <p>{{ actor.givenName }} {{ actor.familyName }} </p>
-              </div>
-            </div>
-          </div>
-        </div>-->
       </div>
 
     </section>

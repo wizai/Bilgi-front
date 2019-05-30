@@ -18,7 +18,7 @@
               <p>{{ slide.letter }}</p>
           </div>
         </flickity>
-        <a href="" class="chooseButton">Voir un article</a>
+        <nuxt-link :to="'./article/'+ currentLetter" class="chooseButton">Voir un article</nuxt-link>
       </section>
       <!-- <div class="center">
         <div class="centerBis">
@@ -37,117 +37,117 @@
 
 <script>
 
-import progressbar from "~/components/slider/progressBar.vue";
+  import progressbar from "~/components/slider/progressBar.vue";
 
   export default {
 
-    data(){
-      return{
+    data() {
+      return {
         slides: [
-            {
-                "_id": 1,
-                "letter": 'Aa'
-            },
-            {
-                "_id": 2,
-                "letter": 'Bb'
-            },
-            {
-                "_id": 3,
-                "letter": 'Cc'
-            },
-            {
-                "_id": 4,
-                "letter": 'Dd'
-            },
-            {
-                "_id": 5,
-                "letter": 'Ee'
-            },
-            {
-                "_id": 6,
-                "letter": 'Ff'
-            },
-            {
-                "_id": 7,
-                "letter": 'Gg'
-            },
-            {
-                "_id": 8,
-                "letter": 'Hh'
-            },
-            {
-                "_id": 9,
-                "letter": 'Ii'
-            },
-            {
-                "_id": 10,
-                "letter": 'Jj'
-            },
-            {
-                "_id": 11,
-                "letter": 'Kk'
-            },
-            {
-                "_id": 12,
-                "letter": 'Ll'
-            },
-            {
-                "_id": 13,
-                "letter": 'Mm'
-            },
-            {
-                "_id": 14,
-                "letter": 'Nn'
-            },
-            {
-                "_id": 15,
-                "letter": 'Oo'
-            },
-            {
-                "_id": 16,
-                "letter": 'Pp'
-            },
-            {
-                "_id": 17,
-                "letter": 'Qq'
-            },
-            {
-                "_id": 18,
-                "letter": 'Rr'
-            },
-            {
-                "_id": 19,
-                "letter": 'Ss'
-            },
-            {
-                "_id": 20,
-                "letter": 'Tt'
-            },
-            {
-                "_id": 21,
-                "letter": 'Uu'
-            },
-            {
-                "_id": 22,
-                "letter": 'Vv'
-            },
-            {
-                "_id": 23,
-                "letter": 'Ww'
-            },
-            {
-                "_id": 24,
-                "letter": 'Xx'
-            },
-            {
-                "_id": 25,
-                "letter": 'Yy'
-            },
-            {
-                "_id": 26,
-                "letter": 'Zz'
-            }
+          {
+            "_id": 1,
+            "letter": 'Aa'
+          },
+          {
+            "_id": 2,
+            "letter": 'Bb'
+          },
+          {
+            "_id": 3,
+            "letter": 'Cc'
+          },
+          {
+            "_id": 4,
+            "letter": 'Dd'
+          },
+          {
+            "_id": 5,
+            "letter": 'Ee'
+          },
+          {
+            "_id": 6,
+            "letter": 'Ff'
+          },
+          {
+            "_id": 7,
+            "letter": 'Gg'
+          },
+          {
+            "_id": 8,
+            "letter": 'Hh'
+          },
+          {
+            "_id": 9,
+            "letter": 'Ii'
+          },
+          {
+            "_id": 10,
+            "letter": 'Jj'
+          },
+          {
+            "_id": 11,
+            "letter": 'Kk'
+          },
+          {
+            "_id": 12,
+            "letter": 'Ll'
+          },
+          {
+            "_id": 13,
+            "letter": 'Mm'
+          },
+          {
+            "_id": 14,
+            "letter": 'Nn'
+          },
+          {
+            "_id": 15,
+            "letter": 'Oo'
+          },
+          {
+            "_id": 16,
+            "letter": 'Pp'
+          },
+          {
+            "_id": 17,
+            "letter": 'Qq'
+          },
+          {
+            "_id": 18,
+            "letter": 'Rr'
+          },
+          {
+            "_id": 19,
+            "letter": 'Ss'
+          },
+          {
+            "_id": 20,
+            "letter": 'Tt'
+          },
+          {
+            "_id": 21,
+            "letter": 'Uu'
+          },
+          {
+            "_id": 22,
+            "letter": 'Vv'
+          },
+          {
+            "_id": 23,
+            "letter": 'Ww'
+          },
+          {
+            "_id": 24,
+            "letter": 'Xx'
+          },
+          {
+            "_id": 25,
+            "letter": 'Yy'
+          },
+          {
+            "_id": 26,
+            "letter": 'Zz'
+          }
         ],
         flickityOptions: {
           contain: true,
@@ -167,6 +167,7 @@ import progressbar from "~/components/slider/progressBar.vue";
         tick: '',
         isPaused: false,
         progress: '0',
+        currentLetter : 'A'
       }
     },
 
@@ -213,6 +214,13 @@ import progressbar from "~/components/slider/progressBar.vue";
       resetProgressbar() {
         this.progress = 0 + '%';
         clearTimeout(this.tick);
+      },
+
+      linkToLetter(){
+        let flkty = this.$refs.flickity.$flickity;
+        let sliderCurrent = flkty.selectedIndex + 1;
+        let letterLink = this.slides.filter(slide => slide._id === sliderCurrent);
+        this.currentLetter = letterLink[0].letter[0];
       }
 
     },
@@ -222,11 +230,11 @@ import progressbar from "~/components/slider/progressBar.vue";
       let flkty = this.$refs.flickity.$flickity;
       let redBlock = document.querySelector('.redBlock');
 
-      flkty.on( 'change', function( index ) {
+      flkty.on('change', function (index) {
         redBlock.classList.add("mystyle");
       });
 
-      flkty.on( 'settle', function( index ) {
+      flkty.on('settle', function (index) {
         redBlock.classList.remove("mystyle");
       });
 
@@ -234,7 +242,6 @@ import progressbar from "~/components/slider/progressBar.vue";
       let sliderContainer = document.querySelector('.containerSlider');
 
       sliderContainer.addEventListener('mouseenter', function () {
-        console.log('dessus')
         $this.isPaused = true;
       });
       sliderContainer.addEventListener('mouseleave', function () {
@@ -245,10 +252,12 @@ import progressbar from "~/components/slider/progressBar.vue";
         this.$refs.flickity.on('change', function () {
           //$this.isPaused = true;
           $this.updateStatus();
+          $this.linkToLetter();
         });
 
         this.startProgressbar();
         this.updateStatus();
+        this.linkToLetter();
       });
 
 
@@ -284,7 +293,6 @@ import progressbar from "~/components/slider/progressBar.vue";
 
       }
 
-
     },
 
     components: {
@@ -296,9 +304,9 @@ import progressbar from "~/components/slider/progressBar.vue";
 
 <style lang="scss">
 
-@import "@/assets/scss/style.scss";
+  @import "@/assets/scss/style.scss";
 
- .page-listingFilms{
+  .page-listingFilms {
     position: absolute;
     width: 100%;
     top: 50%;
@@ -331,12 +339,11 @@ import progressbar from "~/components/slider/progressBar.vue";
       height: 200px;
       margin: 0 75px;
       position: relative;
+      @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
 
-      & p{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+      & p {
         font-size: 80px;
         color: #fff;
         font-weight: bold;
@@ -365,7 +372,7 @@ import progressbar from "~/components/slider/progressBar.vue";
     }
   }
 
-  .chooseButton{
+  .chooseButton {
     position: absolute;
     top: 100%;
     left: 50%;
@@ -384,7 +391,7 @@ import progressbar from "~/components/slider/progressBar.vue";
     left: 0;
   }
 
-  .page-homepage{
+  .page-homepage {
     background: radial-gradient(#183E80, #001447);
     background-size: cover;
     height: 100vh;
@@ -393,7 +400,7 @@ import progressbar from "~/components/slider/progressBar.vue";
     position: relative;
   }
 
-  .gradientWhite{
+  .gradientWhite {
     position: absolute;
     width: 500px;
     height: 500px;
@@ -404,7 +411,7 @@ import progressbar from "~/components/slider/progressBar.vue";
     transform: translate(-50%, -50%);
   }
 
-  .redBlock{
+  .redBlock {
     position: absolute;
     width: 200px;
     height: 200px;
@@ -416,12 +423,12 @@ import progressbar from "~/components/slider/progressBar.vue";
     transition: .2s;
   }
 
-  .redBlock.mystyle{
+  .redBlock.mystyle {
     width: 0px;
     height: 0px;
   }
 
-  .center{
+  .center {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -434,7 +441,8 @@ import progressbar from "~/components/slider/progressBar.vue";
     align-items: center;
     justify-content: center;
   }
-  .centerBis{
+
+  .centerBis {
     background-color: orangered;
     width: 150px;
     height: 150px;
