@@ -5,7 +5,14 @@
     <header>
 
       <div class="header__container" v-bind:class="{ 'color-nav': $route.path == '/' }">
-        <nav>
+        <div class="navMobileContainer">
+          <div class="menuBurger">
+            <div class="bar1"></div>
+            <div class="bar2"></div>
+            <div class="bar3"></div>
+          </div>
+        </div>
+        <nav class="nav">
           <nuxt-link to="/" class="logo">Bilgi</nuxt-link>
           <div>
             <nuxt-link to="/login" class="sign in">Sign in</nuxt-link>
@@ -24,6 +31,15 @@
 
   export default {
     name: "Header",
+
+    mounted: function (){
+      var menuBurger = document.querySelector('.menuBurger');
+      var nav = document.querySelector('.nav');
+      menuBurger.onclick = function(){
+        menuBurger.classList.toggle("change");
+        nav.classList.toggle("open");
+      }
+    }
   }
 
 </script>
@@ -41,6 +57,7 @@
     }
 
     &__container {
+      position: relative;
       height: 100px;
       @include flexbox();
       @include align-items(center);
@@ -64,6 +81,45 @@
         }
       }
 
+      & .navMobileContainer{
+        display: none;
+
+        @media #{$mobile} {
+          display: block;
+        }
+
+        & .menuBurger{
+          & .bar1,
+          & .bar2,
+          & .bar3{
+            width: 35px;
+            height: 5px;
+            background-color: $white;
+            margin: 6px 0;
+            border-radius: 5px;
+            transition: .4s ease;
+          }
+
+          &.change{
+             & .bar1 {
+                -webkit-transform: rotate(-45deg) translate(-8px, 6px);
+                transform: rotate(-45deg) translate(-8px, 6px);
+              }
+
+              & .bar2 {opacity: 0;}
+
+              & .bar3 {
+                -webkit-transform: rotate(45deg) translate(-9px, -8px);
+                transform: rotate(45deg) translate(-9px, -8px);
+              }
+          }
+        }
+      }
+
+      @media #{$mobile} {
+        padding: 0 50px;
+      }
+
     }
 
     nav{
@@ -71,12 +127,23 @@
       @include justify-content(space-between);
       width: 100%;
 
+      & div{
+        @media #{$mobile} {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
       & a{
         font-weight: bold;
 
         &.logo{
           font-size: 18px;
           color: $black;
+
+          @media #{$mobile} {
+            margin-bottom: 20px;
+          }
         }
 
         &.sign{
@@ -89,7 +156,29 @@
             background-color: $black;
             color: $white;
           }
+
+          @media #{$mobile} {
+            width: 100px;
+            text-align: center;
+          }
         }
+      }
+
+      @media #{$mobile} {
+        position: absolute;
+        left: 50px;
+        top: 85px;
+        transform: translateX(-250px);
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        transition: .4s ease;
+      }
+    }
+
+    .nav{
+      &.open{
+        transform: translateX(0);
       }
     }
   }
