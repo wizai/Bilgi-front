@@ -4,7 +4,7 @@
 
     <header>
 
-      <div class="header__container">
+      <div class="header__container" v-bind:class="{ 'color-nav': $route.path == '/' }">
         <nav>
           <nuxt-link to="/" class="logo">Bilgi</nuxt-link>
           <div>
@@ -35,7 +35,9 @@
   .header {
 
     header{
-      position: relative;
+      position: fixed;
+      width: 100%;
+      z-index: 4;
     }
 
     &__container {
@@ -46,6 +48,21 @@
       @include box-sizing(border-box);
       width: 100%;
       padding: 0 100px;
+
+      &.color-nav{
+        & nav {
+          & a{
+            &.logo,
+            &.sign{
+              color: #fff;
+              &.up{
+                background-color: #fff;
+                color: black;
+              }
+            }
+          }
+        }
+      }
 
     }
 

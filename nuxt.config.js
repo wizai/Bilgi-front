@@ -33,7 +33,10 @@ export default {
   /*
   ** Plugins to load before mounting the App
   */
-  plugins: ['~plugins/mixins/user.js'],
+  plugins: [
+    '~plugins/mixins/user.js',
+    { src: '~/plugins/VueFlickity.js', ssr: false }
+  ],
 
   /*
   ** Nuxt.js modules
