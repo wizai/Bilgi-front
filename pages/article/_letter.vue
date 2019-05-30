@@ -300,6 +300,11 @@
         text-align: center;
         text-shadow: 0 2px 4px rgba(0, 0, 0, .5);
       }
+
+      @media #{$mobile} {
+        border: none;
+        border-top: 60px solid $white;
+      }
     }
 
     &__description {
@@ -341,6 +346,10 @@
             left: -30px;
             background: #F7F7F7;
             z-index: -1;
+
+            @media screen and(max-width: 400px) {
+              width: 100%;
+            }
           }
         }
 
@@ -348,6 +357,11 @@
           line-height: 40px;
           font-size: 18px;
           font-weight: 300;
+        }
+
+        @media #{$mobile} {
+          flex-direction: column;
+          align-items: center;
         }
       }
 
@@ -384,6 +398,15 @@
           display: block;
           margin-bottom: 5px;
         }
+
+
+        @media #{$mobile} {
+          text-align: center;
+        }
+      }
+
+      @media #{$mobile} {
+        padding: 15px;
       }
 
     }
