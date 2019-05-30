@@ -442,25 +442,4 @@
     height: 0px;
   }
 
-  .center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 300px;
-    width: 300px;
-    background-color: #0D2A66;
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .centerBis {
-    background-color: orangered;
-    width: 150px;
-    height: 150px;
-    border-radius: 100%;
-  }
-
 </style>

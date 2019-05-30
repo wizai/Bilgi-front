@@ -57,6 +57,10 @@
 
     }
 
+    @media #{$mobile} {
+      bottom: 50px;
+    }
+
   }
 
 </style>
