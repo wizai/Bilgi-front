@@ -95,7 +95,7 @@
         width: 100%;
         height: 47px;
         font-family: $Circular;
-        color: #BEB9C5;
+        color: $black;
         font-size: 18px;
         padding: 0 5px;
         outline: none;

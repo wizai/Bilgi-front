@@ -7,7 +7,7 @@
       <nuxt-link :to="{ name: 'register' }" class="nav-link">
         Register
       </nuxt-link>
-      <a href="" @click.prevent="logout">Sign Out</a>
+
     </header> -->
     <div>
       <div class="gradientWhite"></div>
@@ -20,16 +20,6 @@
         </flickity>
         <nuxt-link :to="'./article/'+ currentLetter" class="chooseButton">Voir un article</nuxt-link>
       </section>
-      <!-- <div class="center">
-        <div class="centerBis">
-          <p v-if="loggedIn">
-            Hello {{ user.name }}
-          </p>
-          <p v-if="!loggedIn">
-            Please sign in
-          </p>
-        </div>
-      </div> -->
       <progressbar :sliderCurrent="sliderCurrent" :sliderMax="sliderMax" :progress="progress"></progressbar>
     </div>
   </section>

@@ -14,7 +14,11 @@
         </div>
         <nav class="nav">
           <nuxt-link to="/" class="logo">Bilgi</nuxt-link>
-          <div>
+          <div v-if="loggedIn" class="logIn">
+            <p>{{ user.name }}</p>
+            <a href="" @click.prevent="logout">Sign Out</a>
+          </div>
+          <div v-else>
             <nuxt-link to="/login" class="sign in">Sign in</nuxt-link>
             <nuxt-link to="register" class="sign up">Sign up</nuxt-link>
           </div>
@@ -39,6 +43,12 @@
         menuBurger.classList.toggle("change");
         nav.classList.toggle("open");
       }
+    },
+
+    methods: {
+      logout() {
+        this.$auth.logout();
+      },
     }
   }
 
@@ -65,9 +75,20 @@
       @include box-sizing(border-box);
       width: 100%;
       padding: 0 100px;
+      background-color: $white;
 
       &.color-nav{
+        background-color: transparent;
         & nav {
+          .logIn{
+            p{
+              color: $white;
+            }
+            a{
+              background-color: $white;
+              color: $black;
+            }
+          }
           & a{
             &.logo,
             &.sign{
@@ -142,6 +163,30 @@
         @media #{$mobile} {
           display: flex;
           flex-direction: column;
+        }
+      }
+
+      .logIn{
+        p, a{
+          font-weight: 700;
+          color: $black;
+          display: inline-block;
+          @media #{$mobile} {
+            display: block;
+          }
+        }
+        a{
+          margin-left: 20px;
+          display: inline-block;
+          padding: 6px 20px;
+          border-radius: 20px;
+          color: $white;
+          background-color: $black;
+          @media #{$mobile} {
+            width: 100px;
+            text-align: center;
+            margin-left: 0px;
+          }
         }
       }
 

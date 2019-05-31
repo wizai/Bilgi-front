@@ -4,7 +4,7 @@
     <form action="" @submit.prevent="addUser">
       <div class="formContent">
         <h2>Welcome back,</h2>
-        <h2><span>{{ username }}</span></h2>
+        <!--<h2><span>{{ username }}</span></h2>-->
         <input type="email" placeholder="Email adress" autofocus required v-model="userForm.email">
         <input type="password" placeholder="Password" required v-model="userForm.password">
         <button type="submit"></button>
@@ -89,7 +89,7 @@
         width: 100%;
         height: 47px;
         font-family: $Circular;
-        color: #BEB9C5;
+        color: $black;
         font-size: 18px;
         padding: 0 5px;
         outline: none;

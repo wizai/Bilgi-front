@@ -1,64 +1,77 @@
 <template>
-  <div v-if="!article.vote_count">
-    <section class="news">
-      <div class="like"></div>
-      <div class="news__container">
-        <h1>{{ article.title }}</h1>
-        <h2>{{ article.publishedAt }} - {{ article.source.name }}</h2>
-        <figure>
-          <img :src=" article.urlToImage" :alt=" article.title ">
-        </figure>
-        <p>
-          {{ article.content }}
-        </p>
-        <div class="buttonContainer">
-          <a :href="article.url" class="button" target="_blank">
-        <span class="button__text">
-          <span class="button_text--src">Voir l'article original</span>
-          <svg class="arrow">
-            <polygon points="2,2 8,5.5 2,10"></polygon>
-          </svg>
-        </span>
-            <span class="button__circle">
-          <span class="button__circle--block"></span>
-        </span>
-          </a>
-        </div>
-      </div>
-    </section>
-  </div>
-  <div v-else>
-    <section class="movie">
-      <div class="movie__title" :style="{ backgroundImage: 'url(http://image.tmdb.org/t/p/original/' + article.backdrop_path + ')'}">
-        <h1>{{article.title}}</h1>
-      </div>
-      <div class="movie__description">
-        <div class="movie__description--part1">
-          <div class="left">
-            <div class="movie__description--part1--affiche">
-              <img :src="'http://image.tmdb.org/t/p/w342/' +  `${article.poster_path}`" :alt=" article.title ">
-            </div>
-            <div class="movie__description--info">
-              <span>Date de sortie</span>
-              <p>{{ article.release_date}}</p>
-            </div>
-            <div class="movie__description--info">
-              <span>Genre</span>
-              <p v-for="genre in article.genres" :key="genre.id">{{ genre.name }}</p>
-            </div>
-            <div class="movie__description--info">
-              <span>Note </span>
-              <p>{{ article.popularity }}</p>
-            </div>
-          </div>
-          <div class="right">
-            <h2>{{article.title}}</h2>
-            <p class="movie__description--part1--synopsis">{{ article.overview }}</p>
+  <div>
+    <div class="like"
+         v-if="article.author"
+         v-bind:class="{ liked: active }"
+         v-on:click="active = !active; addArticle()">
+      <div class="like__content"></div>
+    </div>
+    <div class="like"
+         v-else-if="article.vote_count"
+         v-bind:class="{ liked: active }"
+         v-on:click="active = !active; addFilm()">
+      <div class="like__content"></div>
+    </div>
+    <div v-if="article.author">
+      <section class="news">
+        <div class="news__container">
+          <h1>{{ article.title }}</h1>
+          <h2>{{ article.publishedAt }} - {{ article.source.name }}</h2>
+          <figure>
+            <img :src=" article.urlToImage" :alt=" article.title ">
+          </figure>
+          <p>
+            {{ article.content }}
+          </p>
+          <div class="buttonContainer">
+            <a :href="article.url" class="button" target="_blank">
+          <span class="button__text">
+            <span class="button_text--src">Voir l'article original</span>
+            <svg class="arrow">
+              <polygon points="2,2 8,5.5 2,10"></polygon>
+            </svg>
+          </span>
+              <span class="button__circle">
+            <span class="button__circle--block"></span>
+          </span>
+            </a>
           </div>
         </div>
-      </div>
+      </section>
+    </div>
+    <div v-else-if="article.vote_count">
+      <section class="movie">
+        <div class="movie__title" :style="{ backgroundImage: 'url(http://image.tmdb.org/t/p/original/' + article.backdrop_path + ')'}">
+          <h1>{{article.title}}</h1>
+        </div>
+        <div class="movie__description">
+          <div class="movie__description--part1">
+            <div class="left">
+              <div class="movie__description--part1--affiche">
+                <img :src="'http://image.tmdb.org/t/p/w342/' +  `${article.poster_path}`" :alt=" article.title ">
+              </div>
+              <div class="movie__description--info">
+                <span>Date de sortie</span>
+                <p>{{ article.release_date}}</p>
+              </div>
+              <div class="movie__description--info">
+                <span>Genre</span>
+                <p v-for="genre in article.genres" :key="genre.id">{{ genre.name }}</p>
+              </div>
+              <div class="movie__description--info">
+                <span>Note </span>
+                <p>{{ article.popularity }}</p>
+              </div>
+            </div>
+            <div class="right">
+              <h2>{{article.title}}</h2>
+              <p class="movie__description--part1--synopsis">{{ article.overview }}</p>
+            </div>
+          </div>
+        </div>
 
-    </section>
+      </section>
+    </div>
   </div>
 </template>
 <script>
@@ -71,23 +84,61 @@
 
     data() {
       return {
-        article: {}
-      }
-    },
-
-    mounted: function (){
-      var like = document.querySelector('.like');
-      like.onclick = function(){
-        like.classList.toggle("liked");
+        article: {},
+        active : false
       }
     },
 
     async asyncData({params}) {
-      let response = await axios.get('http://127.0.0.1:8000/api/letter/' + params.letter)
+      let response = await axios.get('http://127.0.0.1:8000/api/letter/' + params.letter);
+      console.log(response);
       return {
         article: response.data
       }
     },
+
+    methods: {
+
+      addArticle() {
+
+        let $this = this;
+        axios.post('http://127.0.0.1:8000/api/articles', {
+          title: this.article.title,
+          body: this.article.content,
+          img: this.article.urlToImage,
+          source : this.article.source.name,
+          date : this.article.publishedAt,
+          user_ids : this.user.id
+        })
+          .then(function (response) {
+            $this.error = null;
+          })
+          .catch(function (error) {
+            $this.error = error;
+          });
+
+      },
+
+      addFilm(){
+        let $this = this;
+        axios.post('http://127.0.0.1:8000/api/films', {
+          title: this.article.title,
+          body: this.article.overview,
+          affiche : this.article.poster_path,
+          img: this.article.backdrop_path,
+          note : this.article.popularity,
+          date : this.article.release_date,
+          user_ids : this.user.id
+        })
+          .then(function (response) {
+            $this.error = null;
+          })
+          .catch(function (error) {
+            $this.error = error;
+          });
+      },
+
+    }
 
 
   }
@@ -98,39 +149,53 @@
 
   @import "@/assets/scss/style.scss";
 
-  .news {
-    position: relative;
-
-    & .like{
-      cursor: pointer;
-      display: block;
-      width: 50px;
-      height: 50px;
-      position: fixed;
-      top: 50%;
-      left: 0;
-      transform: translate(20px, -50%);
+  .like{
+    cursor: pointer;
+    display: block;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 50%;
+    left: 0;
+    z-index: 9999;
+    transform: translate(20px, -50%);
+    padding: 10px;
+    @include box-sizing(border-box);
+    background-color: $white;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    @include box-shadow(0 2px 10px rgba(0,0,0,.15));
+    &__content{
+      height: 100%;
+      width: 100%;
       background: url(../../assets/img/like.svg);
       background-repeat: no-repeat;
       background-size: cover;
       background-position: center center;
+    }
 
-      &.liked{
-      background: url(../../assets/img/likeOk.svg);
-      background-repeat: no-repeat;
-      background-size: cover;
-      background-position: center center;
-      }
-
-
-      @media #{$mobile} {
-        top: inherit;
-        left: inherit;
-        bottom: 0;
-        right: 0;
-        transform: translate(-50px, -50px);
+    &.liked{
+      .like__content{
+        background: url(../../assets/img/likeOk.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
       }
     }
+
+
+    @media #{$mobile} {
+      top: inherit;
+      left: inherit;
+      bottom: 0;
+      right: 0;
+      transform: translate(-50px, -50px);
+    }
+  }
+
+  .news {
+    position: relative;
 
     &__container {
       max-width: 900px;
