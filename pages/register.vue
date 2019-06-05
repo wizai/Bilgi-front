@@ -8,6 +8,7 @@
         <input type="email" placeholder="Email adress" autofocus required v-model="userForm.email">
         <input type="password" placeholder="Password" required v-model="userForm.password">
         <input type="text" placeholder="Hobbies" v-model="userForm.hobby">
+        <label class="label-file" for="avatar">Choose an image</label>
         <input type="file" ref="avatar" @change="processFile($event)" id="avatar">
         <div class="chooseHobby">
           <div class='tagHere'></div>
@@ -101,7 +102,8 @@
 
       & input[type="text"],
       & input[type="email"],
-      & input[type="password"]{
+      & input[type="password"],
+      & .label-file{
         appearance: none;
         -webkit-appearance: none;
         border: none;
@@ -109,6 +111,7 @@
         display: block;
         width: 100%;
         height: 47px;
+        line-height: 47px;
         font-family: $Circular;
         color: $black;
         font-size: 18px;
@@ -121,6 +124,10 @@
           color: #BEB9C5;
           font-size: 18px;
         }
+      }
+
+      input[type="file"] {
+          display: none;
       }
 
       .chooseHobby{
