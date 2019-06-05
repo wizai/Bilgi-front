@@ -161,6 +161,10 @@
       }
     },
 
+    beforeDestroy() {
+      clearInterval(this.tick);
+    },
+
     methods: {
       logout() {
         this.$auth.logout();

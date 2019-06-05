@@ -20,7 +20,7 @@
           </div>
           <div v-else>
             <nuxt-link to="/login" class="sign in">Sign in</nuxt-link>
-            <nuxt-link to="register" class="sign up">Sign up</nuxt-link>
+            <nuxt-link to="/register" class="sign up">Sign up</nuxt-link>
           </div>
         </nav>
       </div>

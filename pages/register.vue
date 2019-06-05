@@ -1,12 +1,18 @@
 <template>
   <div>
-    <form action="" @submit.prevent="registerUser">
+    <form action="" @submit.prevent="registerUser" enctype="multipart/form-data">
       <div class="formContent">
         <h2>Hello <span>Buddy</span>,</h2>
         <p>Enter your informations below</p>
         <input type="text" placeholder="Name" autofocus required v-model="userForm.name">
         <input type="email" placeholder="Email adress" autofocus required v-model="userForm.email">
         <input type="password" placeholder="Password" required v-model="userForm.password">
+        <input type="text" placeholder="Hobbies" v-model="userForm.hobby">
+        <input type="file" ref="avatar" @change="processFile($event)" id="avatar">
+        <div class="chooseHobby">
+          <div class='tagHere'></div>
+          <input type="text" autofocus/>
+        </div>
         <button type="submit"></button>
       </div>
     </form>
@@ -21,7 +27,9 @@
         userForm: {
           name: '',
           email: '',
-          password: ''
+          password: '',
+          hobby: ['toto', 'yallah', 'ttett'],
+          file: '',
         }
       }
     },
@@ -30,13 +38,20 @@
         await this.$axios.post('register', this.userForm);
         this.$auth.login({
           data: {
+            name: this.userForm.name,
             email: this.userForm.email,
-            password: this.userForm.password
+            password: this.userForm.password,
+            hobby: this.userForm.hobby,
+            file: this.userForm.file
           }
         });
         this.$router.push({
           path: '/'
         });
+      },
+
+      processFile(event) {
+        this.userForm.file = event.target.files[0]
       }
     }
   }
@@ -105,6 +120,32 @@
           font-family: $Circular;
           color: #BEB9C5;
           font-size: 18px;
+        }
+      }
+
+      .chooseHobby{
+        input{
+          outline: none;
+          width: auto;
+          border: 0;
+          float: left;
+          padding: 8px;
+          background: none;
+          & a {
+            color: #000;
+            padding-right: 10px;
+            padding-left:5px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            margin-right: 5px;
+          }
+
+          & span {
+            padding-right: 10px;
+            padding-left: 0px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+          }
         }
       }
 

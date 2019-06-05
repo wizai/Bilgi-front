@@ -100,15 +100,15 @@
     methods: {
 
       addArticle() {
-
         let $this = this;
         axios.post('http://127.0.0.1:8000/api/articles', {
           title: this.article.title,
           body: this.article.content,
           img: this.article.urlToImage,
           source : this.article.source.name,
-          date : this.article.publishedAt,
-          user_ids : this.user.id
+          link : this.article.url,
+          date : this.article.release_date,
+          user_ids: this.user.id,
         })
           .then(function (response) {
             $this.error = null;
@@ -127,7 +127,7 @@
           affiche : this.article.poster_path,
           img: this.article.backdrop_path,
           note : this.article.popularity,
-          date : this.article.release_date,
+          date : '2019-06-04 13:21:30',
           user_ids : this.user.id
         })
           .then(function (response) {
