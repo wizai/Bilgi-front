@@ -174,6 +174,8 @@
           display: inline-block;
           @media #{$mobile} {
             display: block;
+            text-align: center;
+            margin-bottom: 20px;
           }
         }
         a{
@@ -208,6 +210,13 @@
           padding: 6px 20px;
           border-radius: 20px;
           color: $black;
+
+          &.in{
+
+            @media #{$mobile} {
+              margin-bottom: 20px;
+            }
+          }
 
           &.up{
             background-color: $black;
