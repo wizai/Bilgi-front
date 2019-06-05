@@ -102,6 +102,7 @@
         }
 
         & .navMobileContainer{
+          z-index: 6;
 
           & .menuBurger{
             & .bar1,
@@ -125,7 +126,7 @@
           & .bar2,
           & .bar3{
             width: 35px;
-            height: 5px;
+            height: 3px;
             background-color: #000;
             margin: 6px 0;
             border-radius: 5px;
@@ -134,15 +135,15 @@
 
           &.change{
              & .bar1 {
-                -webkit-transform: rotate(-45deg) translate(-8px, 6px);
-                transform: rotate(-45deg) translate(-8px, 6px);
+                -webkit-transform: rotate(-45deg) translate(-5px, 6px);
+                transform: rotate(-45deg) translate(-5px, 6px);
               }
 
               & .bar2 {opacity: 0;}
 
               & .bar3 {
-                -webkit-transform: rotate(45deg) translate(-9px, -8px);
-                transform: rotate(45deg) translate(-9px, -8px);
+                -webkit-transform: rotate(45deg) translate(-7px, -8px);
+                transform: rotate(45deg) translate(-7px, -8px);
               }
           }
         }
@@ -173,6 +174,8 @@
           display: inline-block;
           @media #{$mobile} {
             display: block;
+            text-align: center;
+            margin-bottom: 20px;
           }
         }
         a{
@@ -208,6 +211,13 @@
           border-radius: 20px;
           color: $black;
 
+          &.in{
+
+            @media #{$mobile} {
+              margin-bottom: 20px;
+            }
+          }
+
           &.up{
             background-color: $black;
             color: $white;
@@ -222,12 +232,16 @@
 
       @media #{$mobile} {
         position: absolute;
-        left: 50px;
-        top: 85px;
-        transform: translateX(-250px);
+        width: 100%;
+        height: 100vh;
+        background: radial-gradient(#183E80, #001447);
+        left: 0;
+        top: 0;
+        transform: translateX(-100%);
         display: flex;
         flex-direction: column;
-        width: 200px;
+        justify-content: center;
+        align-items: center;
         transition: .4s ease;
       }
     }
