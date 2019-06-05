@@ -8,7 +8,7 @@
         <input type="email" placeholder="Email adress" autofocus required v-model="userForm.email">
         <input type="password" placeholder="Password" required v-model="userForm.password">
         <input type="text" placeholder="Hobbies" v-model="userForm.hobby">
-        <input type="file" ref="avatar" @change="processFile($event)" id="avatar">
+        <input type="file" ref="avatar" @change="processFile()" id="avatar">
         <div class="chooseHobby">
           <div class='tagHere'></div>
           <input type="text" autofocus/>
@@ -29,29 +29,44 @@
           email: '',
           password: '',
           hobby: ['toto', 'yallah', 'ttett'],
-          file: '',
+          avatar: '',
         }
       }
     },
     methods: {
       async registerUser() {
-        await this.$axios.post('register', this.userForm);
+        let formData = new FormData();
+        formData.append('name', this.userForm.name);
+        formData.append('email', this.userForm.email);
+        formData.append('password', this.userForm.password);
+        formData.append('hobby', JSON.stringify(this.userForm.hobby));
+        formData.append('avatar', this.userForm.avatar);
+
+        await this.$axios.post('register', formData,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          }
+        );
         this.$auth.login({
           data: {
             name: this.userForm.name,
             email: this.userForm.email,
             password: this.userForm.password,
             hobby: this.userForm.hobby,
-            file: this.userForm.file
+            avatar: this.userForm.file
           }
         });
+        console.log(this.userForm);
         this.$router.push({
           path: '/'
         });
       },
 
-      processFile(event) {
-        this.userForm.file = event.target.files[0]
+      processFile() {
+        console.log(this)
+        this.userForm.avatar = this.$refs.avatar.files[0];
       }
     }
   }
