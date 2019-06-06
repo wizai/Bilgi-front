@@ -154,7 +154,7 @@
           & .bar3{
             width: 35px;
             height: 3px;
-            background-color: $white;
+            background-color: $black;
             margin: 6px 0;
             border-radius: 5px;
             transition: .4s ease;
@@ -164,6 +164,7 @@
              & .bar1 {
                 -webkit-transform: rotate(-45deg) translate(-5px, 6px);
                 transform: rotate(-45deg) translate(-5px, 6px);
+                background-color: $white;
               }
 
               & .bar2 {opacity: 0;}
@@ -171,6 +172,7 @@
               & .bar3 {
                 -webkit-transform: rotate(45deg) translate(-7px, -8px);
                 transform: rotate(45deg) translate(-7px, -8px);
+                background-color: $white;
               }
           }
         }
@@ -235,6 +237,9 @@
 
           @media #{$mobile} {
             margin-top: -15px;
+            border: 2px solid $white;
+            border-left: 0px;
+            border-top: 0px;
           }
         }
 
