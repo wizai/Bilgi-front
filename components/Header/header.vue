@@ -6,7 +6,10 @@
 
       <div class="header__container" v-bind:class="{ 'color-nav': $route.path == '/' }">
         <div class="navMobileContainer" >
-          <div class="menuBurger">
+          <div class="menuBurger"
+          v-bind:class="{ change: openMenuBurger }"
+          v-on:click="openMenuBurger = !openMenuBurger, openNav()"
+          >
             <div class="bar1"></div>
             <div class="bar2"></div>
             <div class="bar3"></div>
@@ -15,12 +18,23 @@
         <nav class="nav">
           <nuxt-link to="/" class="logo">Bilgi</nuxt-link>
           <div v-if="loggedIn" class="logIn">
-            <div class="user">
+            <div class="user"
+            v-bind:class="{ open: active }"
+            v-on:click="active = !active"
+            >
               <div class="user__img" :style="{ background: 'url(' + user.avatar.name + ') center top / cover'}"></div>
               <p class="user__name">Bonjour, {{ user.name }}</p>
               <div class="user__arrow"></div>
+              <div class="user__nav">
+                <ul>
+                  <li>
+                    <a href="#">My profile</a>
+                    <a href="#">Gallery</a>
+                    <a href="" @click.prevent="logout">Sign Out</a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <!--<a href="" @click.prevent="logout">Sign Out</a>-->
           </div>
           <div v-else>
             <nuxt-link to="/login" class="sign in">Sign in</nuxt-link>
@@ -40,12 +54,10 @@
   export default {
     name: "Header",
 
-    mounted: function (){
-      var menuBurger = document.querySelector('.menuBurger');
-      var nav = document.querySelector('.nav');
-      menuBurger.onclick = function(){
-        menuBurger.classList.toggle("change");
-        nav.classList.toggle("open");
+    data() {
+      return{
+        active: false,
+        openMenuBurger: false
       }
     },
 
@@ -53,6 +65,11 @@
       logout() {
         this.$auth.logout();
       },
+      openNav() {
+        var nav = document.querySelector('.nav');
+        nav.classList.toggle("open");
+      }
+
     }
   }
 
@@ -128,6 +145,7 @@
 
         @media #{$mobile} {
           display: block;
+          z-index: 55;
         }
 
         & .menuBurger{
@@ -136,7 +154,7 @@
           & .bar3{
             width: 35px;
             height: 3px;
-            background-color: #000;
+            background-color: $white;
             margin: 6px 0;
             border-radius: 5px;
             transition: .4s ease;
@@ -155,6 +173,20 @@
                 transform: rotate(45deg) translate(-7px, -8px);
               }
           }
+        }
+      }
+
+      &__profil{
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        background-color: $white;
+
+        & li{
+          text-align: center;
         }
       }
 
@@ -179,6 +211,7 @@
       .user{
         @include flexbox();
         @include align-items(center);
+        position: relative;
         &__img{
           height: 30px;
           width: 30px;
@@ -199,6 +232,46 @@
           border-left: 0px;
           border-top: 0px;
           display: inline-block;
+
+          @media #{$mobile} {
+            margin-top: -15px;
+          }
+        }
+
+        &__nav{
+          position: absolute;
+          width: 100%;
+          min-width: 110px;
+          display: none;
+          flex-direction: column;
+          top: 100%;
+          left: 50%;
+          transform: translate(-50%, 8px);
+
+          & li{
+
+            & a{
+              width: 100%;
+              border-radius: 0;
+              margin-left: 0;
+              padding: 0;
+              text-align: center;
+              padding: 6px 0;
+              color: $black!important;
+              background-color: $white;
+
+              @media #{$mobile} {
+                margin-bottom: 0;
+              }
+            }
+          }
+        }
+
+        &.open{
+
+          & .user__nav{
+            display: flex;
+          }
         }
       }
 
@@ -211,6 +284,7 @@
             display: block;
             text-align: center;
             margin-bottom: 20px;
+            color: $white;
           }
         }
         a{
@@ -237,6 +311,7 @@
 
           @media #{$mobile} {
             margin-bottom: 20px;
+            color: $white;
           }
         }
 
