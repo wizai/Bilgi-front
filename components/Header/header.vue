@@ -15,8 +15,12 @@
         <nav class="nav">
           <nuxt-link to="/" class="logo">Bilgi</nuxt-link>
           <div v-if="loggedIn" class="logIn">
-            <p>{{ user.name }}</p>
-            <a href="" @click.prevent="logout">Sign Out</a>
+            <div class="user">
+              <div class="user__img" :style="{ background: 'url(' + user.avatar.name + ') center top / cover'}"></div>
+              <p class="user__name">Bonjour, {{ user.name }}</p>
+              <div class="user__arrow"></div>
+            </div>
+            <!--<a href="" @click.prevent="logout">Sign Out</a>-->
           </div>
           <div v-else>
             <nuxt-link to="/login" class="sign in">Sign in</nuxt-link>
@@ -87,6 +91,11 @@
             a{
               background-color: $white;
               color: $black;
+            }
+            .user__arrow{
+              border: 2px solid $white;
+              border-left: 0px;
+              border-top: 0px;
             }
           }
           & a{
@@ -164,6 +173,32 @@
         @media #{$mobile} {
           display: flex;
           flex-direction: column;
+        }
+      }
+
+      .user{
+        @include flexbox();
+        @include align-items(center);
+        &__img{
+          height: 30px;
+          width: 30px;
+          margin-right: 20px;
+          -webkit-border-radius: 100%;
+          -moz-border-radius: 100%;
+          border-radius: 100%;
+          background: 50% no-repeat;
+          -webkit-background-size: cover;
+          background-size: cover;
+        }
+        &__arrow{
+          margin-left: 10px;
+          height: 6px;
+          width: 6px;
+          border: 2px solid $black;
+          @include transform(rotate(45deg));
+          border-left: 0px;
+          border-top: 0px;
+          display: inline-block;
         }
       }
 

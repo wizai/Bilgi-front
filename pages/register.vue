@@ -10,7 +10,7 @@
         <input type="text" placeholder="Hobbies" v-model="userForm.hobby">
         <p class="info">Use , to input a hobby.</p>
         <label class="label-file" for="avatar">Choose an image</label>
-        <input type="file" ref="avatar" @change="processFile($event)" id="avatar">
+        <input type="file" ref="avatar" @change="processFile()" id="avatar">
         <div class="chooseHobby">
           <div class='tagHere'></div>
           <input type="text" autofocus/>
@@ -36,12 +36,13 @@
       }
     },
     methods: {
+
       async registerUser() {
         let formData = new FormData();
         formData.append('name', this.userForm.name);
         formData.append('email', this.userForm.email);
         formData.append('password', this.userForm.password);
-        formData.append('hobby', JSON.stringify(this.userForm.hobby));
+        formData.append('hobby', JSON.stringify(this.userForm.hobby.split(',')));
         formData.append('avatar', this.userForm.avatar);
 
         await this.$axios.post('register', formData,

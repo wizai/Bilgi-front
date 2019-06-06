@@ -4,7 +4,6 @@
     <form action="" @submit.prevent="addUser">
       <div class="formContent">
         <h2>Welcome back,</h2>
-        <!--<h2><span>{{ username }}</span></h2>-->
         <input type="email" placeholder="Email adress" autofocus required v-model="userForm.email">
         <input type="password" placeholder="Password" required v-model="userForm.password">
         <button type="submit"></button>
@@ -20,7 +19,6 @@
     name: "login",
     data() {
       return {
-        username: 'Will',
         userForm: {
           email: '',
           password: ''

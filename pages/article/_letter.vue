@@ -16,7 +16,7 @@
       <section class="news">
         <div class="news__container">
           <h1>{{ article.title }}</h1>
-          <h2>{{ article.publishedAt }} - {{ article.source.name }}</h2>
+          <h2>{{ changeDateFormat(article.publishedAt) }} - {{ article.source.name }}</h2>
           <figure>
             <img :src=" article.urlToImage" :alt=" article.title ">
           </figure>
@@ -99,6 +99,10 @@
 
     methods: {
 
+      changeDateFormat ($date){
+        return new Date($date).toISOString().split('T')[0];
+      },
+
       addArticle() {
         let $this = this;
         axios.post('http://127.0.0.1:8000/api/articles', {
@@ -107,7 +111,7 @@
           img: this.article.urlToImage,
           source : this.article.source.name,
           link : this.article.url,
-          date : this.article.release_date,
+          date : this.changeDateFormat(this.article.publishedAt),
           user_ids: this.user.id,
         })
           .then(function (response) {
@@ -116,7 +120,6 @@
           .catch(function (error) {
             $this.error = error;
           });
-
       },
 
       addFilm(){
@@ -127,7 +130,7 @@
           affiche : this.article.poster_path,
           img: this.article.backdrop_path,
           note : this.article.popularity,
-          date : '2019-06-04 13:21:30',
+          date : this.article.release_date,
           user_ids : this.user.id
         })
           .then(function (response) {
