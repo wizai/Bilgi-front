@@ -23,7 +23,7 @@
 
 <script>
   export default {
-    name: "register",
+    name: "edit",
     data() {
       return {
         userForm: {
@@ -45,7 +45,7 @@
         formData.append('hobby', JSON.stringify(this.userForm.hobby.split(',')));
         formData.append('avatar', this.userForm.avatar);
 
-        await this.$axios.post('register', formData,
+        await this.$axios.post('user/' + this.user.id, formData,
           {
             headers: {
               'Content-Type': 'multipart/form-data'
@@ -68,7 +68,17 @@
 
       processFile() {
         this.userForm.avatar = this.$refs.avatar.files[0];
-      }
+      },
+
+    },
+
+    mounted() {
+
+      this.userForm.name = this.user.name;
+      this.userForm.email = this.user.email;
+      this.userForm.hobby = this.user.hobby.map(item => item.title);
+      this.userForm.avatar = this.user.avatar;
+
     }
   }
 </script>
@@ -147,7 +157,7 @@
       }
 
       input[type="file"] {
-          display: none;
+        display: none;
       }
 
       .chooseHobby{
